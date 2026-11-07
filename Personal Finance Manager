@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.IO;
+using Newtonsoft.Json;
+
+
+namespace PersonalFinanceManager
+{
+    class Program
+    {
+        static List<Expense> expenses = new List<Expense>();
+        static decimal budget = 0;
+        static decimal savingsGoal = 0;
+        static decimal totalSavings = 0;
+
+        static void main(string[] args)
+        {
+            LoadData();
+            ShowMainMenu();
+        }
+        static void ShowMainMenu()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Welcome to personal Finance Manager");
+                Console.WriteLine("1. Add Expense");
+                Console.WriteLine("2. View Expenses");
+                Console.WriteLine("3. Set Budget");
+                Console.WriteLine("4. Track Saving goals");
+                Console.WriteLine("5. Exit");
+                Console.WriteLine("Select an option (1-5)");
+
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        addExpense();
+                        break;
+                    case "2":
+                        ViewExpense();
+                        break;
+                    case "3":
+                        SetBudget();
+                        break;
+                    case "4":
+                        TrackSavingGoals();
+                        break;
+                    case "5":
+                        SaveData();
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Option: Please try again");
+                        break;
+
+                }
+            }
+        }
+
+        static void AddExpense()
+        {
+            Console.Clear();
+            Console.WriteLine("Add a new expense");
+
+            Console.WriteLine("Enter Catergory (e.g., Food, Transport, Entertainment): ");
+            string catergory = Console.ReadLine();
+
+            Console.Write("Enter Amount: ");
+            if(decimal.TryParse( Console.ReadLine(), out decimal amount))
+            {
+                expenses.Add(new Expense {  Category = category, amount = amount, Date = DateTime.Now });
+                Console.WriteLine("Expense added successfully!");
+            }
+            else
+            {
+                Console.WriteLine("Invalid Amount: Please enter a valid number");
+            }
+
+            Console.WriteLine("Press any key to return to main menue...");
+            Console.ReadKey();
+
+        }
+        static void ViewExpense()
+        {
+            Console.Clear();
+            Console.WriteLine("Expense History : ");
+
+            if(expenses.Count == 0)
+            {
+                Console.WriteLine("No Expense recorded.");
+
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+}
