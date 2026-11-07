@@ -94,8 +94,57 @@ namespace PersonalFinanceManager
             }
             else
             {
+                foreach (var expense in expenses)
+                {
+                    Console.WriteLine(expense);
 
+                }   
             }
+
+            Console.WriteLine("Press any key to return to main menu...");
+            Console.ReadKey();
+        }
+
+        static void SetBudget()
+        {
+            Console.Clear();
+            Console.WriteLine("Set your monthly budget: ");
+
+            Console.Write("Enter Budget Amount: "); 
+            if(decimal.TryParse(Console.ReadLine(), out decimal amount))
+            {
+                budget = amount;
+                Console.WriteLine("Budget set successfully,${budget}!");
+            }
+            else
+            {
+                Console.WriteLine("Invalid Amount: Please enter a valid number");
+            }
+
+            Console.WriteLine("Press any key to return to main menu...");
+            Console.ReadKey();
+        }
+
+        static void TrackSavingGoals()
+        {
+            Console.Clear();
+            Console.WriteLine("Track your saving goals: ");
+
+            Console.Write("Enter Saving Goal Amount: ");
+            if(decimal.TryParse(Console.ReadLine(), out decimal amount))
+            {
+                savingsGoal = goal;
+                Console.WriteLine("Saving goal set successfully, ${savingsGoal} !");
+            }
+            else
+            {
+                Console.WriteLine("Invalid Amount: Please enter a valid number");
+            }
+            decimal remainingSavings = savingsGoal - totalSavings;
+            Console.WriteLine($"Total Savings: ${remainingSavings} remaining to reach your goal of ${savingsGoal}.");
+
+            Console.WriteLine("Press any key to return to main menu...");
+            Console.ReadKey();
         }
     }
 
