@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.IO;
+using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 
@@ -15,7 +16,7 @@ namespace PersonalFinanceManager
         static decimal savingsGoal = 0;
         static decimal totalSavings = 0;
 
-        static void main(string[] args)
+        static void Main(string[] args)
         {
             LoadData();
             ShowMainMenu();
@@ -145,6 +146,31 @@ namespace PersonalFinanceManager
 
             Console.WriteLine("Press any key to return to main menu...");
             Console.ReadKey();
+        }
+
+        static void SaveData()
+        {
+            var data = new
+            {
+                Expenses = expenses,
+                Budget = budget,
+                SavingsGoal = savingsGoal,
+                TotalSavings = totalSavings
+            };
+
+            file.WriteAllText("finance_data.json", JsonConvert.SerializeObject(data));
+        }
+
+        static void LoadData()
+        {
+            if (File.Exists("finance_data.json"))
+            {
+                var data = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText("finance_data.json"));
+                expenses = JsonConvert.DeserializeObject<List<Expense>>(data.Expenses.ToString());
+                budget = data.Budget;
+                savingsGoal = data.SavingsGoal;
+                totalSavings = data.TotalSavings;
+            }
         }
     }
 
